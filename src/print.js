@@ -1,8 +1,17 @@
 const columnPadding = 5;
 
+function formatAmount(amount) {
+  return amount
+    .toFixed(2)
+    .replace(/(\d)(?=(\d{3})+\.)/g, '$1 ')
+    .replace('.', ',');
+}
+
 function printAccount(nameColumnWidth, account) {
   const nameLength = account.name.length;
-  console.log(`${account.name.padEnd(nameColumnWidth)}${account.balance}`);
+  console.log(
+    `${account.name.padEnd(nameColumnWidth)}${formatAmount(account.balance)}`
+  );
 }
 
 function printAccounts(accounts) {
