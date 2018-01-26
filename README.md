@@ -1,4 +1,4 @@
-# sb-cli
+# sbanken-cli
 
 **Note:** this is not in any way affiliated with SBanken.
 
