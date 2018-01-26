@@ -1,4 +1,4 @@
-const https = require('https');
+const request = require('./request');
 
 const hostname = 'api.sbanken.no';
 
@@ -14,7 +14,6 @@ function getAccessToken(clientId, passwd) {
   const options = {
     hostname: hostname,
     path: tokenEndpoint,
-    method: 'POST',
     headers: {
       Authorization: `Basic ${basicAuth}`,
       Accept: 'application/json',
@@ -22,21 +21,9 @@ function getAccessToken(clientId, passwd) {
     }
   };
 
-  return new Promise(function(resolve, reject) {
-    const req = https.request(options, res => {
-      let response = '';
-      res.setEncoding('utf-8');
-      res.on('data', chunk => (response += chunk));
-      res.on('end', () => resolve(JSON.parse(response)['access_token']));
-    });
-
-    req.on('error', error => {
-      reject(error);
-    });
-
-    req.write(payload);
-    req.end();
-  });
+  return request
+    .post(options, payload)
+    .then(response => response['access_token']);
 }
 
 function accounts(accessToken, customerId) {
@@ -45,27 +32,13 @@ function accounts(accessToken, customerId) {
   const options = {
     hostname: hostname,
     path: accountsEndpoint,
-    method: 'GET',
     headers: {
       Authorization: `Bearer ${accessToken}`,
       Accept: 'application/json'
     }
   };
 
-  return new Promise(function(resolve, reject) {
-    const req = https.request(options, res => {
-      let response = '';
-      res.setEncoding('utf-8');
-      res.on('data', chunk => (response += chunk));
-      res.on('end', () => resolve(JSON.parse(response)));
-    });
-
-    req.on('error', error => {
-      reject(error);
-    });
-
-    req.end();
-  });
+  return request.get(options);
 }
 
 module.exports = {
