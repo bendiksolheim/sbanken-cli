@@ -8,7 +8,7 @@ const home = process.env.HOME;
 
 const configPath = path.resolve(home, configFile);
 if (!fs.existsSync(configPath)) {
-  console.error('Could not find config file in home folder');
+  console.error('Could not find config file (.sbconfig) in home folder');
   process.exit(1);
 }
 const config = JSON.parse(fs.readFileSync(configPath));
