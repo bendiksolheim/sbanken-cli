@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const conf = require('./config');
 const api = require('./api');
 const print = require('./print');
