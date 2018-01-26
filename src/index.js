@@ -14,7 +14,7 @@ if (!fs.existsSync(configPath)) {
 const config = JSON.parse(fs.readFileSync(configPath));
 
 api
-  .getAccessToken(config.clientId, config.password)
+  .accessToken(config.clientId, config.password)
   .then(accessToken => {
     return api.accounts(accessToken, config.customerId);
   })

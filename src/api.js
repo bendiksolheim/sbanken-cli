@@ -6,7 +6,7 @@ function btoa(str) {
   return Buffer.from(str).toString('base64');
 }
 
-function getAccessToken(clientId, passwd) {
+function accessToken(clientId, passwd) {
   const tokenEndpoint = '/identityserver/connect/token';
   const payload = 'grant_type=client_credentials';
   const basicAuth = btoa(`${clientId}:${passwd}`);
@@ -42,6 +42,6 @@ function accounts(accessToken, customerId) {
 }
 
 module.exports = {
-  getAccessToken,
+  accessToken,
   accounts
 };
