@@ -2,8 +2,9 @@
 const conf = require('./config');
 const api = require('./api');
 const print = require('./print');
+const args = require('./arguments');
 
-function showAccountInfo(config) {
+function balance(config) {
   api
     .accessToken(config.clientId, config.password)
     .then(accessToken => {
@@ -22,4 +23,6 @@ if (!config) {
   process.exit(1);
 }
 
-showAccountInfo(config);
+const parse = args.create({ balance: balance.bind(null, config) });
+const programArguments = process.argv.slice(2);
+parse(programArguments);
