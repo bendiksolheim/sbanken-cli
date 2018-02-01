@@ -17,11 +17,10 @@ function formatAmount(amount) {
     .replace('.', ',');
 }
 
-function printAccount(nameColumnWidth, account) {
-  const nameLength = account.name.length;
-  console.log(
-    `${account.name.padEnd(nameColumnWidth)}${formatAmount(account.balance)}`
-  );
+function printAccount(nameColumnWidth, amountLength, account) {
+  const name = account.name.padEnd(nameColumnWidth);
+  const amount = formatAmount(account.balance).padStart(amountLength);
+  console.log(`${name}${amount}`);
 }
 
 function printAccounts(accounts) {
@@ -29,8 +28,15 @@ function printAccounts(accounts) {
     (acc, cur) => (cur.name.length > acc ? cur.name.length : acc),
     0
   );
+  const amountLength = accounts.items.reduce(
+    (acc, cur) =>
+      formatAmount(cur.balance).length > acc
+        ? formatAmount(cur.balance).length
+        : acc,
+    0
+  );
   accounts.items.forEach(account =>
-    printAccount(nameLength + columnPadding, account)
+    printAccount(nameLength + columnPadding, amountLength, account)
   );
 }
 
