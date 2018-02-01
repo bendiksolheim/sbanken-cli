@@ -46,7 +46,7 @@ function transactions(accessToken, customerId, accounts, accountName) {
 
   if (!account) {
     return Promise.reject(
-      `Account ${accountName} not found. Available accounts: ${accounts
+      `Account '${accountName}' not found. Available accounts: ${accounts
         .map(a => a.name)
         .join(', ')}`
     );
