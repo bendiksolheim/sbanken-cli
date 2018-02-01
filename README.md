@@ -12,7 +12,15 @@ A CLI for the SBanken API ([documentation in Norwegian](https://sbanken.no/bruke
 
 ## Usage
 
-`$ sb`
+```
+  Usage
+    $ sb <command>
+
+  where <command> is one of:
+    help             Display help text
+    balance          Display balance for all accounts
+    transactions     Display transactions for an account
+```
 
 It expects a file called `.sbconfig` in your home folder with the following content:
 
