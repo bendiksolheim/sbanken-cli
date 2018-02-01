@@ -17,12 +17,41 @@ function balance(config) {
     });
 }
 
+function transactions(config, account) {
+  api
+    .accessToken(config.clientId, config.password)
+    .then(accessToken => {
+      api
+        .accounts(accessToken, config.customerId)
+        .then(accounts =>
+          api.transactions(
+            accessToken,
+            config.customerId,
+            accounts.items,
+            account
+          )
+        )
+        .then(transactions => print.printTransactions(transactions))
+        .catch(error => {
+          console.error(error);
+          process.exit(1);
+        });
+    })
+    .catch(error => {
+      console.error(error);
+      process.exit(1);
+    });
+}
+
 const config = conf.load();
 if (!config) {
   console.error('Could not find config file (.sbconfig) in home folder');
   process.exit(1);
 }
 
-const parse = args.create({ balance: balance.bind(null, config) });
+const parse = args.create({
+  balance: balance.bind(null, config),
+  transactions: account => transactions(config, account)
+});
 const programArguments = process.argv.slice(2);
 parse(programArguments);

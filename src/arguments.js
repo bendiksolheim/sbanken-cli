@@ -6,6 +6,7 @@ function help() {
   where <command> is one of:
     help             Display help text
     balance          Display balance for all accounts
+    transactions     Display transactions for an account
   `);
 }
 
