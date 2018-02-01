@@ -57,7 +57,7 @@ function printTransactions({ availableItems, items }) {
   const to = new Date(items[0].accountingDate);
   const number = availableItems;
   console.log(
-    `Showing ${number} items between ${formatDate(from)} and ${formatDate(to)}`
+    `${number} transactions between ${formatDate(from)} and ${formatDate(to)}`
   );
   const amountLength = items.reduce(
     (acc, cur) =>
