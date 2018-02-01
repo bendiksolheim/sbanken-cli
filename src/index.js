@@ -50,7 +50,7 @@ if (!config) {
 }
 
 const parse = args.create({
-  balance: balance.bind(null, config),
+  balance: () => balance(config),
   transactions: account => transactions(config, account)
 });
 const programArguments = process.argv.slice(2);
