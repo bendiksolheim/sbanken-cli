@@ -4,43 +4,32 @@ const api = require('./api');
 const print = require('./print');
 const args = require('./arguments');
 
-function balance(config) {
-  api
-    .accessToken(config.clientId, config.password)
-    .then(accessToken => {
-      return api.accounts(accessToken, config.customerId);
-    })
-    .then(print.printAccounts)
-    .catch(error => {
-      console.error(error);
-      process.exit(1);
-    });
+async function balance(config) {
+  try {
+    const accessToken = await api.accessToken(config.clientId, config.password);
+    const accounts = await api.accounts(accessToken, config.customerId);
+    print.printAccounts(accounts);
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
 }
 
-function transactions(config, account) {
-  api
-    .accessToken(config.clientId, config.password)
-    .then(accessToken => {
-      api
-        .accounts(accessToken, config.customerId)
-        .then(accounts =>
-          api.transactions(
-            accessToken,
-            config.customerId,
-            accounts.items,
-            account
-          )
-        )
-        .then(transactions => print.printTransactions(transactions))
-        .catch(error => {
-          console.error(error);
-          process.exit(1);
-        });
-    })
-    .catch(error => {
-      console.error(error);
-      process.exit(1);
-    });
+async function transactions(config, account) {
+  try {
+    const accessToken = await api.accessToken(config.clientId, config.password);
+    const accounts = await api.accounts(accessToken, config.customerId);
+    const transactions = await api.transactions(
+      accessToken,
+      config.customerId,
+      accounts.items,
+      account
+    );
+    print.printTransactions(transactions);
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
 }
 
 const config = conf.load();
