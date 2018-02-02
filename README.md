@@ -8,6 +8,8 @@ A CLI for the SBanken API ([documentation in Norwegian](https://sbanken.no/bruke
 
 ## Installation
 
+Requires Node.js v7.6.0 or higher.
+
 `npm install -g sbanken-cli`
 
 ## Usage
