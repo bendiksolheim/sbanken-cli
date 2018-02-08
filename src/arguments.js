@@ -4,8 +4,8 @@ function help() {
     $ sb <command>
 
   where <command> is one of:
-    help             Display help text
     balance          Display balance for all accounts
+    help             Display help text
     transactions     Display transactions for an account
   `);
 }
