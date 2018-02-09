@@ -86,7 +86,6 @@ function printAccountInfo({ item }) {
 
 module.exports = {
   printAccounts,
-  printAccount,
   printTransactions,
   printAccountInfo
 };
