@@ -1,5 +1,15 @@
 const columnPadding = 5;
 
+function camelCaseToNormalCase(text) {
+  return (
+    text[0].toUpperCase() +
+    text
+      .slice(1)
+      .replace(/([A-ZÆØÅ])/, ' $1')
+      .toLowerCase()
+  );
+}
+
 function formatDate(dateObject) {
   const date = dateObject
     .getDate()
