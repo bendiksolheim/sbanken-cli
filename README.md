@@ -19,8 +19,9 @@ Requires Node.js v7.6.0 or higher.
     $ sb <command>
 
   where <command> is one of:
-    help             Display help text
+    account          Display info about specific account
     balance          Display balance for all accounts
+    help             Display help text
     transactions     Display transactions for an account
 ```
 
