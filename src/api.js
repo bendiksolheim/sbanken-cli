@@ -67,8 +67,35 @@ function transactions(accessToken, customerId, accounts, accountName) {
   return request.get(options);
 }
 
+function accountInfo(accessToken, customerId, accounts, accountName) {
+  const account = accounts.find(a => a.name === accountName);
+
+  if (!account) {
+    return Promise.reject(
+      `Account '${accountName}' not found. Available accounts: ${accounts
+        .map(a => a.name)
+        .join(', ')}`
+    );
+  }
+
+  const accountInfoEndpoint = `/bank/api/v1/accounts/${customerId}/${
+    account.accountNumber
+  }`;
+  const options = {
+    hostname: hostname,
+    path: accountInfoEndpoint,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: 'application/json'
+    }
+  };
+
+  return request.get(options);
+}
+
 module.exports = {
   accessToken,
   accounts,
-  transactions
+  transactions,
+  accountInfo
 };
