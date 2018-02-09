@@ -30,9 +30,7 @@ function printTransaction(transaction, amountLength) {
     ? transaction.text.slice(0, 49) + '…'
     : transaction.text.slice(0, 50)
   ).padEnd(55);
-  const amount = formatAmount(transaction.amount)
-    .toString()
-    .padStart(amountLength);
+  const amount = formatAmount(transaction.amount).padStart(amountLength);
   console.log(`${date}${text}${amount}`);
 }
 
