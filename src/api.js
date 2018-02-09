@@ -1,19 +1,16 @@
 const request = require('./request');
+const { btoa } = require('./format');
 
 const hostname = 'api.sbanken.no';
 
-function btoa(str) {
-  return Buffer.from(str).toString('base64');
-}
-
 function accessToken(clientId, passwd) {
-  const tokenEndpoint = '/identityserver/connect/token';
+  const endpoint = '/identityserver/connect/token';
   const payload = 'grant_type=client_credentials';
   const basicAuth = btoa(`${clientId}:${passwd}`);
 
   const options = {
     hostname: hostname,
-    path: tokenEndpoint,
+    path: endpoint,
     headers: {
       Authorization: `Basic ${basicAuth}`,
       Accept: 'application/json',
@@ -27,11 +24,11 @@ function accessToken(clientId, passwd) {
 }
 
 function accounts(accessToken, customerId) {
-  const accountsEndpoint = `/bank/api/v1/accounts/${customerId}`;
+  const endpoint = `/bank/api/v1/accounts/${customerId}`;
 
   const options = {
     hostname: hostname,
-    path: accountsEndpoint,
+    path: endpoint,
     headers: {
       Authorization: `Bearer ${accessToken}`,
       Accept: 'application/json'
@@ -42,9 +39,9 @@ function accounts(accessToken, customerId) {
 }
 
 function transactions(accessToken, customerId, accounts, accountName) {
-  const account = accounts.find(a => a.name === accountName);
+  const { accountNumber } = accounts.find(a => a.name === accountName);
 
-  if (!account) {
+  if (!accountNumber) {
     return Promise.reject(
       `Account '${accountName}' not found. Available accounts: ${accounts
         .map(a => a.name)
@@ -52,12 +49,10 @@ function transactions(accessToken, customerId, accounts, accountName) {
     );
   }
 
-  const transactionsEndpoint = `/bank/api/v1/transactions/${customerId}/${
-    account.accountNumber
-  }`;
+  const endpoint = `/bank/api/v1/transactions/${customerId}/${accountNumber}`;
   const options = {
     hostname: hostname,
-    path: transactionsEndpoint,
+    path: endpoint,
     headers: {
       Authorization: `Bearer ${accessToken}`,
       Accept: 'application/json'
@@ -68,9 +63,9 @@ function transactions(accessToken, customerId, accounts, accountName) {
 }
 
 function accountInfo(accessToken, customerId, accounts, accountName) {
-  const account = accounts.find(a => a.name === accountName);
+  const { accountNumber } = accounts.find(a => a.name === accountName);
 
-  if (!account) {
+  if (!{ accountNumber }) {
     return Promise.reject(
       `Account '${accountName}' not found. Available accounts: ${accounts
         .map(a => a.name)
@@ -78,12 +73,10 @@ function accountInfo(accessToken, customerId, accounts, accountName) {
     );
   }
 
-  const accountInfoEndpoint = `/bank/api/v1/accounts/${customerId}/${
-    account.accountNumber
-  }`;
+  const endpoint = `/bank/api/v1/accounts/${customerId}/${accountNumber}`;
   const options = {
     hostname: hostname,
-    path: accountInfoEndpoint,
+    path: endpoint,
     headers: {
       Authorization: `Bearer ${accessToken}`,
       Accept: 'application/json'

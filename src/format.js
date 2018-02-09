@@ -25,4 +25,8 @@ function formatAmount(amount) {
     .replace('.', ',');
 }
 
-module.exports = { formatAmount, formatDate, camelCaseToNormalCase };
+function btoa(str) {
+  return Buffer.from(str).toString('base64');
+}
+
+module.exports = { formatAmount, formatDate, camelCaseToNormalCase, btoa };
