@@ -3,14 +3,20 @@ const { btoa } = require('./format');
 
 const hostname = 'api.sbanken.no';
 
+function headers(token) {
+  return {
+    Authorization: `Bearer ${token}`,
+    Accept: 'application/json'
+  };
+}
+
 function accessToken(clientId, passwd) {
-  const endpoint = '/identityserver/connect/token';
   const payload = 'grant_type=client_credentials';
   const basicAuth = btoa(`${clientId}:${passwd}`);
 
   const options = {
     hostname: hostname,
-    path: endpoint,
+    path: '/identityserver/connect/token',
     headers: {
       Authorization: `Basic ${basicAuth}`,
       Accept: 'application/json',
@@ -24,15 +30,10 @@ function accessToken(clientId, passwd) {
 }
 
 function accounts(accessToken, customerId) {
-  const endpoint = `/bank/api/v1/accounts/${customerId}`;
-
   const options = {
     hostname: hostname,
-    path: endpoint,
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      Accept: 'application/json'
-    }
+    path: `/bank/api/v1/accounts/${customerId}`,
+    headers: headers(accessToken)
   };
 
   return request.get(options);
@@ -49,14 +50,10 @@ function transactions(accessToken, customerId, accounts, accountName) {
     );
   }
 
-  const endpoint = `/bank/api/v1/transactions/${customerId}/${accountNumber}`;
   const options = {
     hostname: hostname,
-    path: endpoint,
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      Accept: 'application/json'
-    }
+    path: `/bank/api/v1/transactions/${customerId}/${accountNumber}`,
+    headers: headers(accessToken)
   };
 
   return request.get(options);
@@ -73,14 +70,10 @@ function accountInfo(accessToken, customerId, accounts, accountName) {
     );
   }
 
-  const endpoint = `/bank/api/v1/accounts/${customerId}/${accountNumber}`;
   const options = {
     hostname: hostname,
-    path: endpoint,
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      Accept: 'application/json'
-    }
+    path: `/bank/api/v1/accounts/${customerId}/${accountNumber}`,
+    headers: headers(accessToken)
   };
 
   return request.get(options);
