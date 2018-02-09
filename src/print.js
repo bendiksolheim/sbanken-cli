@@ -79,8 +79,40 @@ function printTransactions({ availableItems, items }) {
   items.forEach(transaction => printTransaction(transaction, amountLength));
 }
 
+function printAccountInfoLine(key, value, keyLength, valueLength) {
+  if (typeof value !== 'string') {
+    value = value.toString();
+  }
+  console.log(
+    `${camelCaseToNormalCase(key).padEnd(keyLength)}${value.padStart(
+      valueLength + columnPadding
+    )}`
+  );
+}
+
+function printAccountInfo({ item }) {
+  const keys = Object.keys(item);
+  const { keyLength, valueLength } = keys.reduce(
+    (acc, key) => {
+      return {
+        keyLength: acc.keyLength > key.length ? acc.keyLength : key.length,
+        valueLength:
+          acc.valueLength > (item[key] + '').length
+            ? acc.valueLength
+            : (item[key] + '').length
+      };
+    },
+    { keyLenght: 0, valueLength: 0 }
+  );
+
+  keys.forEach(key =>
+    printAccountInfoLine(key, item[key], keyLength, valueLength)
+  );
+}
+
 module.exports = {
   printAccounts,
   printAccount,
-  printTransactions
+  printTransactions,
+  printAccountInfo
 };
