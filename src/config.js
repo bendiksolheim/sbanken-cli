@@ -3,7 +3,6 @@ const fs = require('fs');
 
 const configFilename = '.sbconfig';
 const home = process.env.HOME;
-
 const configPath = path.resolve(home, configFilename);
 
 function load() {
