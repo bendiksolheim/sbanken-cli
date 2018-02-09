@@ -52,9 +52,7 @@ function printTransactions({ availableItems, items }) {
 }
 
 function printAccountInfoLine(key, value, keyLength, valueLength) {
-  if (typeof value !== 'string') {
-    value = value.toString();
-  }
+  value = value.toString();
   console.log(
     `${camelCaseToNormalCase(key).padEnd(keyLength)}${value.padStart(
       valueLength + columnPadding
