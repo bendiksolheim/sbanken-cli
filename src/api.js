@@ -79,9 +79,27 @@ function accountInfo(accessToken, customerId, accounts, accountName) {
   return request.get(options);
 }
 
+function transfer(accessToken, customerId, from, to, amount, message) {
+  const options = {
+    hostname: hostname,
+    path: `/bank/api/v1/transfers/${customerId}`,
+    headers: { ...headers(accessToken), 'Content-Type': 'application/json' }
+  };
+
+  const payload = {
+    FromAccount: from,
+    ToAccount: to,
+    Amount: amount,
+    Message: message
+  };
+
+  return request.post(options, JSON.stringify(payload));
+}
+
 module.exports = {
   accessToken,
   accounts,
   transactions,
-  accountInfo
+  accountInfo,
+  transfer
 };
