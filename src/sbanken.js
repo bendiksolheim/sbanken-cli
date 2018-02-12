@@ -46,4 +46,34 @@ async function accountInfo(config, account) {
   }
 }
 
-module.exports = { balance, transactions, accountInfo };
+async function transfer(config, from, to, amount, message) {
+  try {
+    const accessToken = await api.accessToken(config.clientId, config.password);
+    const accounts = await api.accounts(accessToken, config.customerId);
+    const fromAccount = accounts.items.find(a => a.name === from);
+    const toAccount = accounts.items.find(a => a.name === to);
+    const response = await api.transfer(
+      accessToken,
+      config.customerId,
+      fromAccount.accountNumber,
+      toAccount.accountNumber,
+      amount,
+      message
+    );
+    if (response.isError) {
+      console.error(
+        `Failed trying to transfer ${amount} from '${from}' to '${to}': ${
+          response.errorMessage
+        }`
+      );
+    } else {
+      const balance = await api.accounts(accessToken, config.customerId);
+      print.printAccounts(balance);
+    }
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+}
+
+module.exports = { balance, transactions, accountInfo, transfer };
