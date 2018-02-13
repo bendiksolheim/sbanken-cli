@@ -3,13 +3,13 @@ const helpText = `
     $ sb <command>
 
   where <command> is one of:
-    account          Display info about specific account
-    balance          Display balance for all accounts
-    help             Display help text
-    transactions     Display transactions for an account
-    transfer         Transfer between accounts
+    account             Display info about specific account
+    balance             Display balance for all accounts
+    help                Display help text
+    transactions        Display transactions for an account
+    transfer            Transfer between accounts
 
-  sb help <command>  Show information about a specific command
+  sb help <command>     Show information about a specific command
 `;
 
 function getParameters(arrowFn) {
