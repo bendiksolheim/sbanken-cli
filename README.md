@@ -39,7 +39,7 @@ It expects a file called `.sbconfig` in your home folder with the following cont
 }
 ```
 
-See [SBanken API documentation](https://sbanken.no/bruke/utviklerportalen/) for instructions on how to achieve these.
+See [SBanken API documentation](https://sbanken.no/bruke/utviklerportalen/) for instructions on how to get these.
 
 ## Security & Privacy
 
