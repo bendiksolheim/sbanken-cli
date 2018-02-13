@@ -15,14 +15,18 @@ Requires Node.js v7.6.0 or higher.
 ## Usage
 
 ```
+$ sb help
   Usage
     $ sb <command>
 
   where <command> is one of:
-    account          Display info about specific account
-    balance          Display balance for all accounts
-    help             Display help text
-    transactions     Display transactions for an account
+    account             Display info about specific account
+    balance             Display balance for all accounts
+    help                Display help text
+    transactions        Display transactions for an account
+    transfer            Transfer between accounts
+
+  sb help <command>     Show information about a specific command
 ```
 
 It expects a file called `.sbconfig` in your home folder with the following content:
