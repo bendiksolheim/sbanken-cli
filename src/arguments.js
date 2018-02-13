@@ -7,6 +7,7 @@ const helpText = `
     balance          Display balance for all accounts
     help             Display help text
     transactions     Display transactions for an account
+    transfer         Transfer between accounts
 
   sb help <command>  Show information about a specific command
 `;
