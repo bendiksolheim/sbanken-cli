@@ -2,7 +2,9 @@ const api = require('./api');
 const print = require('./print');
 
 function findAccount(accounts, account) {
-  const acc = accounts.find(a => a.name === account);
+  const acc = accounts.find(
+    a => a.name.toLowerCase() === account.toLowerCase()
+  );
   if (!acc) {
     console.error(
       `Account '${account}' not found. Available accounts: ${accounts
