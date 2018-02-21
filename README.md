@@ -4,11 +4,15 @@
 
 ## What is this
 
-A CLI for the SBanken API ([documentation in Norwegian](https://sbanken.no/bruke/utviklerportalen/)). This module really wants to be installed globally. This CLI requires that you are a customer in [SBanken](https://sbanken.no).
+A CLI for SBanken (using their public api:
+[documentation](https://sbanken.no/bruke/utviklerportalen/)), so your can do
+your banking straight from the terminal. It requires that you are a customer in
+[SBanken](https://sbanken.no).
 
 ## Installation
 
-Requires Node.js v7.6.0 or higher.
+Requires Node.js v7.6.0 or higher. This package really wants to be installed
+globally.
 
 `npm install -g sbanken-cli`
 
@@ -29,7 +33,8 @@ $ sb help
   sb help <command>     Show information about a specific command
 ```
 
-It expects a file called `.sbconfig` in your home folder with the following content:
+It expects to find the file `.sbconfig` in your home folder with the following
+content:
 
 ```
 {
@@ -39,11 +44,20 @@ It expects a file called `.sbconfig` in your home folder with the following cont
 }
 ```
 
-See [SBanken API documentation](https://sbanken.no/bruke/utviklerportalen/) for instructions on how to get these.
+See [SBanken API documentation](https://sbanken.no/bruke/utviklerportalen/) for
+instructions on how to get these.
 
 ## Security & Privacy
 
-As this module wants to access your bank account, security and privacy is a big concern. Think twice, and please audit the code, before using it. That said, I do use it myself, if that means anything. To be certain nothing will happen, there are a few really important principles this code will follow:
+As this tool wants to access your bank account, security and privacy is a big
+concern. Think twice, and maybe even read the code, before using it. That said,
+I do use it myself, if that means anything. To be certain nothing will happen,
+there are two really important principles this code will follow:
 
-- It will not in any way phone home. Not even for anonymized usage statistics. Your data will never leave your computer, other than towards the SBanken API.
-- It will, as far as possible, not use any third party libraries or npm packages. See [package.json](package.json) for an updated list.
+- It will not in any way phone home, or to a third party. Not for anonymized
+  usage statistics, not for anything else. Your data will never leave your
+  computer, other than towards the SBanken API.
+- It will, as far as possible, not use any third party libraries or npm
+  packages. See [package.json](package.json) under dependencies for an updated
+  list.
+
