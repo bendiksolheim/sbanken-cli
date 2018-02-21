@@ -40,9 +40,9 @@ function accounts(accessToken, customerId) {
 }
 
 function transactions(accessToken, customerId, accounts, accountName) {
-  const { accountNumber } = accounts.find(a => a.name === accountName);
+  const account = accounts.find(a => a.name === accountName);
 
-  if (!accountNumber) {
+  if (!account) {
     return Promise.reject(
       `Account '${accountName}' not found. Available accounts: ${accounts
         .map(a => a.name)
@@ -52,7 +52,7 @@ function transactions(accessToken, customerId, accounts, accountName) {
 
   const options = {
     hostname: hostname,
-    path: `/bank/api/v1/transactions/${customerId}/${accountNumber}`,
+    path: `/bank/api/v1/transactions/${customerId}/${account.accountNumber}`,
     headers: headers(accessToken)
   };
 
