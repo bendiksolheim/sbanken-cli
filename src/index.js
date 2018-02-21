@@ -10,6 +10,7 @@ if (!config) {
 }
 
 const parse = args.create({
+  accounts: () => balance(config),
   balance: () => balance(config),
   transactions: account => transactions(config, account),
   account: account => accountInfo(config, account),

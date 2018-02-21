@@ -4,6 +4,7 @@ const helpText = `
 
   where <command> is one of:
     account             Display info about specific account
+    accounts            Display balance for all accounts
     balance             Display balance for all accounts
     help                Display help text
     transactions        Display transactions for an account
