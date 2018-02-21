@@ -1,6 +1,20 @@
 const api = require('./api');
 const print = require('./print');
 
+function findAccount(accounts, account) {
+  const acc = accounts.find(a => a.name === account);
+  if (!acc) {
+    console.error(
+      `Account '${account}' not found. Available accounts: ${accounts
+        .map(a => a.name)
+        .join(', ')}`
+    );
+    process.exit(1);
+  }
+
+  return acc;
+}
+
 async function balance(config) {
   try {
     const accessToken = await api.accessToken(config.clientId, config.password);
@@ -12,14 +26,14 @@ async function balance(config) {
   }
 }
 
-async function transactions(config, account) {
+async function transactions(config, accountName) {
   try {
     const accessToken = await api.accessToken(config.clientId, config.password);
     const accounts = await api.accounts(accessToken, config.customerId);
+    const account = findAccount(accounts.items, accountName);
     const transactions = await api.transactions(
       accessToken,
       config.customerId,
-      accounts.items,
       account
     );
     print.printTransactions(transactions);
@@ -29,14 +43,14 @@ async function transactions(config, account) {
   }
 }
 
-async function accountInfo(config, account) {
+async function accountInfo(config, accountName) {
   try {
     const accessToken = await api.accessToken(config.clientId, config.password);
     const accounts = await api.accounts(accessToken, config.customerId);
+    const account = findAccount(accounts.items, accountName);
     const accountInfo = await api.accountInfo(
       accessToken,
       config.customerId,
-      accounts.items,
       account
     );
     print.printAccountInfo(accountInfo);
@@ -50,8 +64,8 @@ async function transfer(config, from, to, amount, message) {
   try {
     const accessToken = await api.accessToken(config.clientId, config.password);
     const accounts = await api.accounts(accessToken, config.customerId);
-    const fromAccount = accounts.items.find(a => a.name === from);
-    const toAccount = accounts.items.find(a => a.name === to);
+    const fromAccount = findAccount(accounts.items, from);
+    const toAccount = findAccount(accounts.items, to);
     const response = await api.transfer(
       accessToken,
       config.customerId,

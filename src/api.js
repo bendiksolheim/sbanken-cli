@@ -39,37 +39,17 @@ function accounts(accessToken, customerId) {
   return request.get(options);
 }
 
-function transactions(accessToken, customerId, accounts, accountName) {
-  const account = accounts.find(a => a.name === accountName);
-
-  if (!account) {
-    return Promise.reject(
-      `Account '${accountName}' not found. Available accounts: ${accounts
-        .map(a => a.name)
-        .join(', ')}`
-    );
-  }
-
+function transactions(accessToken, customerId, { accountNumber }) {
   const options = {
     hostname: hostname,
-    path: `/bank/api/v1/transactions/${customerId}/${account.accountNumber}`,
+    path: `/bank/api/v1/transactions/${customerId}/${accountNumber}`,
     headers: headers(accessToken)
   };
 
   return request.get(options);
 }
 
-function accountInfo(accessToken, customerId, accounts, accountName) {
-  const { accountNumber } = accounts.find(a => a.name === accountName);
-
-  if (!{ accountNumber }) {
-    return Promise.reject(
-      `Account '${accountName}' not found. Available accounts: ${accounts
-        .map(a => a.name)
-        .join(', ')}`
-    );
-  }
-
+function accountInfo(accessToken, customerId, { accountNumber }) {
   const options = {
     hostname: hostname,
     path: `/bank/api/v1/accounts/${customerId}/${accountNumber}`,
